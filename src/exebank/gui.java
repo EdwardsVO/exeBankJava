@@ -53,9 +53,13 @@ public class gui extends javax.swing.JFrame {
         callBAccounts = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tabla.setBackground(new java.awt.Color(255, 255, 255));
+        tabla.setForeground(new java.awt.Color(0, 0, 0));
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -64,89 +68,111 @@ public class gui extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabla.setGridColor(new java.awt.Color(153, 153, 153));
+        tabla.setSelectionBackground(new java.awt.Color(204, 204, 204));
         jScrollPane1.setViewportView(tabla);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 460, 380));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 660, 380));
 
+        callChiefs.setBackground(new java.awt.Color(204, 204, 204));
+        callChiefs.setForeground(new java.awt.Color(0, 0, 0));
         callChiefs.setText("Ver Jefes de Departamento");
         callChiefs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callChiefsActionPerformed(evt);
             }
         });
-        jPanel1.add(callChiefs, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 180, -1));
+        jPanel1.add(callChiefs, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 190, -1));
 
+        callUsers.setBackground(new java.awt.Color(204, 204, 204));
+        callUsers.setForeground(new java.awt.Color(0, 0, 0));
         callUsers.setText("Ver Usuarios");
         callUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callUsersActionPerformed(evt);
             }
         });
-        jPanel1.add(callUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 180, -1));
+        jPanel1.add(callUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 190, -1));
 
-        callEmpKids.setText("Ver Empleados con Bono");
+        callEmpKids.setBackground(new java.awt.Color(204, 204, 204));
+        callEmpKids.setForeground(new java.awt.Color(0, 0, 0));
+        callEmpKids.setText("Ver Empleados con hijos");
         callEmpKids.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callEmpKidsActionPerformed(evt);
             }
         });
-        jPanel1.add(callEmpKids, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 170, -1));
+        jPanel1.add(callEmpKids, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 180, -1));
 
+        callWorkingATM.setBackground(new java.awt.Color(204, 204, 204));
+        callWorkingATM.setForeground(new java.awt.Color(0, 0, 0));
         callWorkingATM.setText("Ver Cajeros Operativos");
         callWorkingATM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callWorkingATMActionPerformed(evt);
             }
         });
-        jPanel1.add(callWorkingATM, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 170, -1));
+        jPanel1.add(callWorkingATM, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 180, -1));
 
+        callAfilliateAccounts.setBackground(new java.awt.Color(204, 204, 204));
+        callAfilliateAccounts.setForeground(new java.awt.Color(0, 0, 0));
         callAfilliateAccounts.setText("Ver Cuentas Afiliadas");
         callAfilliateAccounts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callAfilliateAccountsActionPerformed(evt);
             }
         });
-        jPanel1.add(callAfilliateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 170, -1));
+        jPanel1.add(callAfilliateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 180, -1));
 
+        callAccounts.setBackground(new java.awt.Color(204, 204, 204));
+        callAccounts.setForeground(new java.awt.Color(0, 0, 0));
         callAccounts.setText("Ver Cuentas");
         callAccounts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callAccountsActionPerformed(evt);
             }
         });
-        jPanel1.add(callAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 170, -1));
+        jPanel1.add(callAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 180, -1));
 
+        callTransactions.setBackground(new java.awt.Color(204, 204, 204));
+        callTransactions.setForeground(new java.awt.Color(0, 0, 0));
         callTransactions.setText("Ver Transacciones");
         callTransactions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callTransactionsActionPerformed(evt);
             }
         });
-        jPanel1.add(callTransactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 180, -1));
+        jPanel1.add(callTransactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 190, -1));
 
+        callAPA.setBackground(new java.awt.Color(204, 204, 204));
+        callAPA.setForeground(new java.awt.Color(0, 0, 0));
         callAPA.setText("Ver Cuentas Por Departamento");
         callAPA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callAPAActionPerformed(evt);
             }
         });
-        jPanel1.add(callAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 180, -1));
+        jPanel1.add(callAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 180, 30));
 
+        callpEmpDept.setBackground(new java.awt.Color(204, 204, 204));
+        callpEmpDept.setForeground(new java.awt.Color(0, 0, 0));
         callpEmpDept.setText("Ver Trabajadores por Departamento");
         callpEmpDept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callpEmpDeptActionPerformed(evt);
             }
         });
-        jPanel1.add(callpEmpDept, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 220, -1));
+        jPanel1.add(callpEmpDept, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 230, 30));
 
+        callBAccounts.setBackground(new java.awt.Color(204, 204, 204));
+        callBAccounts.setForeground(new java.awt.Color(0, 0, 0));
         callBAccounts.setText(" Ver Cuentas Importantes");
         callBAccounts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callBAccountsActionPerformed(evt);
             }
         });
-        jPanel1.add(callBAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 180, -1));
+        jPanel1.add(callBAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 190, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
