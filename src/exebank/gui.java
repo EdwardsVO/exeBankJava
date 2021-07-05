@@ -43,6 +43,10 @@ public class gui extends javax.swing.JFrame {
         callChiefs = new javax.swing.JButton();
         callUsers = new javax.swing.JButton();
         callEmpKids = new javax.swing.JToggleButton();
+        callWorkingATM = new javax.swing.JButton();
+        callAfilliateAccounts = new javax.swing.JButton();
+        callAccounts = new javax.swing.JToggleButton();
+        callTransactions = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,7 +70,7 @@ public class gui extends javax.swing.JFrame {
                 callChiefsActionPerformed(evt);
             }
         });
-        jPanel1.add(callChiefs, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
+        jPanel1.add(callChiefs, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 180, -1));
 
         callUsers.setText("Ver Usuarios");
         callUsers.addActionListener(new java.awt.event.ActionListener() {
@@ -74,7 +78,7 @@ public class gui extends javax.swing.JFrame {
                 callUsersActionPerformed(evt);
             }
         });
-        jPanel1.add(callUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
+        jPanel1.add(callUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 180, -1));
 
         callEmpKids.setText("Ver Empleados con Bono");
         callEmpKids.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +86,39 @@ public class gui extends javax.swing.JFrame {
                 callEmpKidsActionPerformed(evt);
             }
         });
-        jPanel1.add(callEmpKids, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, -1, -1));
+        jPanel1.add(callEmpKids, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 170, -1));
+
+        callWorkingATM.setText("Ver Cajeros Operativos");
+        callWorkingATM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callWorkingATMActionPerformed(evt);
+            }
+        });
+        jPanel1.add(callWorkingATM, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 170, -1));
+
+        callAfilliateAccounts.setText("Ver Cuentas Afiliadas");
+        callAfilliateAccounts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAfilliateAccountsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(callAfilliateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 170, -1));
+
+        callAccounts.setText("Ver Cuentas");
+        callAccounts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAccountsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(callAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 170, -1));
+
+        callTransactions.setText("Ver Transacciones");
+        callTransactions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callTransactionsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(callTransactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 180, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,6 +227,141 @@ public class gui extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_callEmpKidsActionPerformed
 
+    private void callWorkingATMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callWorkingATMActionPerformed
+        try {
+            Connection conect = DriverManager.getConnection(BD, user, pw);
+            java.sql.Statement st = conect.createStatement();
+            String query1 = "SELECT h.city as City, h.address_line1 as address_line, zipcode as zipcode, a.working_days as working_Days, isworking from headquarters h INNER JOIN atms a on h.id = a.headquarter_id where(a.isworking)";
+            ResultSet result = st.executeQuery(query1);
+
+            model.addColumn("Ciudad");
+            model.addColumn("Direccion");
+            model.addColumn("Codigo Zip");
+            model.addColumn("Trabaja");
+            this.tabla.setModel(model);
+
+            String data[] = new String[4];
+
+            while (result.next()) {
+
+                data[0] = result.getString("City");
+                data[1] = result.getString("address_line");
+                data[2] = result.getString("zipcode");
+                data[3] = result.getString("working_Days");
+                model.addRow(data);
+            }
+
+            result.close();
+            st.close();
+            conect.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_callWorkingATMActionPerformed
+
+    private void callAfilliateAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAfilliateAccountsActionPerformed
+        try {
+            Connection conect = DriverManager.getConnection(BD, user, pw);
+            java.sql.Statement st = conect.createStatement();
+            String query1 = "SELECT concat(u.first_name, ' ', u.middle_name,' ', u.last_name, ' ', u.second_last_name) as account_owner, aa.recipient_name as affiliated_person FROM users u INNER JOIN accounts a on u.id = a.owner INNER JOIN affiliated_accounts aa on a.account_number = aa.sender_account_number;";
+            ResultSet result = st.executeQuery(query1);
+
+            model.addColumn("Dueño");
+            model.addColumn("Afiliado");
+            this.tabla.setModel(model);
+
+            String data[] = new String[2];
+
+            while (result.next()) {
+
+                data[0] = result.getString("account_owner");
+                data[1] = result.getString("affiliated_person");
+
+                model.addRow(data);
+            }
+
+            result.close();
+            st.close();
+            conect.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_callAfilliateAccountsActionPerformed
+
+    private void callAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAccountsActionPerformed
+        try {
+            Connection conect = DriverManager.getConnection(BD, user, pw);
+            java.sql.Statement st = conect.createStatement();
+            String query1 = "SELECT u.ssn as SSN, concat(u.first_name, ' ', u.last_name) as Name, a.account_number as account_number, a.account_type as account_type, a.account_balance as balance from users u INNER JOIN accounts a on u.id = a.owner;";
+            ResultSet result = st.executeQuery(query1);
+
+            model.addColumn("SSN");
+            model.addColumn("Nombre");
+            model.addColumn("# de Cuenta");
+            model.addColumn("Tipo");
+            model.addColumn("Balance");
+            this.tabla.setModel(model);
+
+            String data[] = new String[5];
+
+            while (result.next()) {
+
+                data[0] = result.getString("SSN");
+                data[1] = result.getString("Name");
+                data[2] = result.getString("account_number");
+                data[3] = result.getString("account_type");
+                data[4] = result.getString("balance");
+
+                model.addRow(data);
+            }
+
+            result.close();
+            st.close();
+            conect.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_callAccountsActionPerformed
+
+    private void callTransactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTransactionsActionPerformed
+        try {
+            Connection conect = DriverManager.getConnection(BD, user, pw);
+            java.sql.Statement st = conect.createStatement();
+            String query1 = "SELECT u.ssn as SSN, concat(u.first_name, ' ', u.last_name) as Sender_name, t.sender_account as Sender_account, t.recipient_account as recipient_account, t.amount as Amount_sent FROM users u INNER JOIN accounts a on u.id = a.owner INNER JOIN transactions t on a.account_number = t.sender_account;";
+            ResultSet result = st.executeQuery(query1);
+
+            model.addColumn("SSN");
+            model.addColumn("Emisor");
+            model.addColumn("Cuenta Emisor");
+            model.addColumn("Cuenta Receptor");
+            model.addColumn("Monto");
+            this.tabla.setModel(model);
+
+            String data[] = new String[5];
+
+            while (result.next()) {
+
+                data[0] = result.getString("SSN");
+                data[1] = result.getString("Sender_name");
+                data[2] = result.getString("Sender_account");
+                data[3] = result.getString("recipient_account");
+                data[4] = result.getString("Amount_sent");
+
+                model.addRow(data);
+            }
+
+            result.close();
+            st.close();
+            conect.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_callTransactionsActionPerformed
+
     public void resetTable() {
         
     }
@@ -230,9 +401,13 @@ public class gui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton callAccounts;
+    private javax.swing.JButton callAfilliateAccounts;
     private javax.swing.JButton callChiefs;
     private javax.swing.JToggleButton callEmpKids;
+    private javax.swing.JToggleButton callTransactions;
     private javax.swing.JButton callUsers;
+    private javax.swing.JButton callWorkingATM;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
