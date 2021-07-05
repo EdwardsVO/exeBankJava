@@ -21,6 +21,7 @@ public class gui extends javax.swing.JFrame {
     String BD = "jdbc:postgresql://ec2-3-231-69-204.compute-1.amazonaws.com:5432/da7h3qajcvr1c8";
     String user = "sfywxdrkesegee";
     String pw = "6b8334dc491a6a65d449e58855d7926bb0bbef6a087acc8b85f7a65824ccc6ac";
+    boolean sData = false;
 
     public gui() {
         initComponents();
@@ -162,7 +163,9 @@ public class gui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void callChiefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callChiefsActionPerformed
+
         try {
+            this.reset();
             Connection conect = DriverManager.getConnection(BD, user, pw);
             java.sql.Statement st = conect.createStatement();
             String query1 = "SELECT DISTINCT concat(u.first_name, ' ', u.last_name) as DEPARTMENTCHIEF, d.department_name as DEPARTMENT from users u JOIN employees e on u.ssn = e.employee_ssn INNER JOIN departments d on e.id = d.department_chief;";
@@ -188,10 +191,12 @@ public class gui extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        
     }//GEN-LAST:event_callChiefsActionPerformed
 
     private void callUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callUsersActionPerformed
         try {
+            this.reset();
             Connection conect = DriverManager.getConnection(BD, user, pw);
             java.sql.Statement st = conect.createStatement();
             String query1 = "SELECT * FROM users;";
@@ -223,6 +228,7 @@ public class gui extends javax.swing.JFrame {
 
     private void callEmpKidsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callEmpKidsActionPerformed
         try {
+            this.reset();
             Connection conect = DriverManager.getConnection(BD, user, pw);
             java.sql.Statement st = conect.createStatement();
             String query1 = "SELECT concat(u.first_name,' ', u.last_name) as Employee_Name, concat(fm.first_name, ' ', fm.last_name) as kid_name, EXTRACT(DAY FROM (date_trunc('year',current_date)-date_trunc('year',fm.date_of_birth))/365 )as kids_age, CASE WHEN(EXTRACT(DAY FROM (date_trunc('year',current_date)-date_trunc('year',fm.date_of_birth))/365 ) < 8) THEN 'SI' ELSE 'NO' END as extraPayment from users u INNER JOIN employees e on u.ssn = e.employee_ssn INNER JOIN family_members fm on e.id = fm.employee_id;";
@@ -256,6 +262,7 @@ public class gui extends javax.swing.JFrame {
 
     private void callWorkingATMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callWorkingATMActionPerformed
         try {
+            this.reset();
             Connection conect = DriverManager.getConnection(BD, user, pw);
             java.sql.Statement st = conect.createStatement();
             String query1 = "SELECT h.city as City, h.address_line1 as address_line, zipcode as zipcode, a.working_days as working_Days, isworking from headquarters h INNER JOIN atms a on h.id = a.headquarter_id where(a.isworking)";
@@ -289,6 +296,7 @@ public class gui extends javax.swing.JFrame {
 
     private void callAfilliateAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAfilliateAccountsActionPerformed
         try {
+            this.reset();
             Connection conect = DriverManager.getConnection(BD, user, pw);
             java.sql.Statement st = conect.createStatement();
             String query1 = "SELECT concat(u.first_name, ' ', u.middle_name,' ', u.last_name, ' ', u.second_last_name) as account_owner, aa.recipient_name as affiliated_person FROM users u INNER JOIN accounts a on u.id = a.owner INNER JOIN affiliated_accounts aa on a.account_number = aa.sender_account_number;";
@@ -319,6 +327,7 @@ public class gui extends javax.swing.JFrame {
 
     private void callAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAccountsActionPerformed
         try {
+            this.reset();
             Connection conect = DriverManager.getConnection(BD, user, pw);
             java.sql.Statement st = conect.createStatement();
             String query1 = "SELECT u.ssn as SSN, concat(u.first_name, ' ', u.last_name) as Name, a.account_number as account_number, a.account_type as account_type, a.account_balance as balance from users u INNER JOIN accounts a on u.id = a.owner;";
@@ -355,6 +364,7 @@ public class gui extends javax.swing.JFrame {
 
     private void callTransactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTransactionsActionPerformed
         try {
+            this.reset();
             Connection conect = DriverManager.getConnection(BD, user, pw);
             java.sql.Statement st = conect.createStatement();
             String query1 = "SELECT u.ssn as SSN, concat(u.first_name, ' ', u.last_name) as Sender_name, t.sender_account as Sender_account, t.recipient_account as recipient_account, t.amount as Amount_sent FROM users u INNER JOIN accounts a on u.id = a.owner INNER JOIN transactions t on a.account_number = t.sender_account;";
@@ -391,6 +401,7 @@ public class gui extends javax.swing.JFrame {
 
     private void callAPAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAPAActionPerformed
         try {
+            this.reset();
             Connection conect = DriverManager.getConnection(BD, user, pw);
             java.sql.Statement st = conect.createStatement();
             String query1 = "SELECT account_number, account_type, h.country as country, h.city as city, h.zipcode as zip from accounts a INNER JOIN headquarters h on a.headquarter_id = h.id ORDER BY city;";
@@ -427,6 +438,7 @@ public class gui extends javax.swing.JFrame {
 
     private void callpEmpDeptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callpEmpDeptActionPerformed
         try {
+            this.reset();
             Connection conect = DriverManager.getConnection(BD, user, pw);
             java.sql.Statement st = conect.createStatement();
             String query1 = "SELECT count(e.id) as employees, d.department_name as department_name, h.city as city  from employees e INNER JOIN departments d on e.department_id = d.id INNER JOIN headquarters h on h.id = d.headquarter_id GROUP BY d.id, h.city";
@@ -459,6 +471,7 @@ public class gui extends javax.swing.JFrame {
 
     private void callBAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callBAccountsActionPerformed
         try {
+            this.reset();
             Connection conect = DriverManager.getConnection(BD, user, pw);
             java.sql.Statement st = conect.createStatement();
             String query1 = "SELECT concat(first_name, ' ', last_name) as full_name, account_number as account_number, a.account_balance as balance, a.account_type as account_type from users u INNER JOIN accounts a on u.id = a.owner WHERE(a.account_balance > 20000) ORDER BY balance desc;";
@@ -490,10 +503,11 @@ public class gui extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_callBAccountsActionPerformed
-
-    public void resetTable() {
+    public void reset() {
+        model = new DefaultTableModel();
         
     }
+    
     /**
      * @param args the command line arguments
      */
