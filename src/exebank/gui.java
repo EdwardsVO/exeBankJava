@@ -101,6 +101,11 @@ public class gui extends javax.swing.JFrame {
                 data[2] = result.getString("nationality");
                 model.addRow(data);
             }
+            
+            result.close();
+            st.close();
+            conect.close();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
