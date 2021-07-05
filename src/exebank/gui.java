@@ -51,6 +51,8 @@ public class gui extends javax.swing.JFrame {
         callAPA = new javax.swing.JButton();
         callpEmpDept = new javax.swing.JToggleButton();
         callBAccounts = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -72,7 +74,7 @@ public class gui extends javax.swing.JFrame {
         tabla.setSelectionBackground(new java.awt.Color(204, 204, 204));
         jScrollPane1.setViewportView(tabla);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 660, 380));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 770, 380));
 
         callChiefs.setBackground(new java.awt.Color(204, 204, 204));
         callChiefs.setForeground(new java.awt.Color(0, 0, 0));
@@ -82,7 +84,7 @@ public class gui extends javax.swing.JFrame {
                 callChiefsActionPerformed(evt);
             }
         });
-        jPanel1.add(callChiefs, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 190, -1));
+        jPanel1.add(callChiefs, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 190, 30));
 
         callUsers.setBackground(new java.awt.Color(204, 204, 204));
         callUsers.setForeground(new java.awt.Color(0, 0, 0));
@@ -92,7 +94,7 @@ public class gui extends javax.swing.JFrame {
                 callUsersActionPerformed(evt);
             }
         });
-        jPanel1.add(callUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 190, -1));
+        jPanel1.add(callUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 190, 30));
 
         callEmpKids.setBackground(new java.awt.Color(204, 204, 204));
         callEmpKids.setForeground(new java.awt.Color(0, 0, 0));
@@ -102,7 +104,7 @@ public class gui extends javax.swing.JFrame {
                 callEmpKidsActionPerformed(evt);
             }
         });
-        jPanel1.add(callEmpKids, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 180, -1));
+        jPanel1.add(callEmpKids, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 180, 30));
 
         callWorkingATM.setBackground(new java.awt.Color(204, 204, 204));
         callWorkingATM.setForeground(new java.awt.Color(0, 0, 0));
@@ -112,7 +114,7 @@ public class gui extends javax.swing.JFrame {
                 callWorkingATMActionPerformed(evt);
             }
         });
-        jPanel1.add(callWorkingATM, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 180, -1));
+        jPanel1.add(callWorkingATM, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, 180, 30));
 
         callAfilliateAccounts.setBackground(new java.awt.Color(204, 204, 204));
         callAfilliateAccounts.setForeground(new java.awt.Color(0, 0, 0));
@@ -122,7 +124,7 @@ public class gui extends javax.swing.JFrame {
                 callAfilliateAccountsActionPerformed(evt);
             }
         });
-        jPanel1.add(callAfilliateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 180, -1));
+        jPanel1.add(callAfilliateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 190, 30));
 
         callAccounts.setBackground(new java.awt.Color(204, 204, 204));
         callAccounts.setForeground(new java.awt.Color(0, 0, 0));
@@ -132,7 +134,7 @@ public class gui extends javax.swing.JFrame {
                 callAccountsActionPerformed(evt);
             }
         });
-        jPanel1.add(callAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 180, -1));
+        jPanel1.add(callAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 180, 30));
 
         callTransactions.setBackground(new java.awt.Color(204, 204, 204));
         callTransactions.setForeground(new java.awt.Color(0, 0, 0));
@@ -142,27 +144,27 @@ public class gui extends javax.swing.JFrame {
                 callTransactionsActionPerformed(evt);
             }
         });
-        jPanel1.add(callTransactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 190, -1));
+        jPanel1.add(callTransactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 180, 30));
 
         callAPA.setBackground(new java.awt.Color(204, 204, 204));
         callAPA.setForeground(new java.awt.Color(0, 0, 0));
-        callAPA.setText("Ver Cuentas Por Departamento");
+        callAPA.setText("Ver Cuentas Por Dpto");
         callAPA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callAPAActionPerformed(evt);
             }
         });
-        jPanel1.add(callAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 180, 30));
+        jPanel1.add(callAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 180, 30));
 
         callpEmpDept.setBackground(new java.awt.Color(204, 204, 204));
         callpEmpDept.setForeground(new java.awt.Color(0, 0, 0));
-        callpEmpDept.setText("Ver Trabajadores por Departamento");
+        callpEmpDept.setText("Ver Trabajadores por Dpto");
         callpEmpDept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callpEmpDeptActionPerformed(evt);
             }
         });
-        jPanel1.add(callpEmpDept, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 230, 30));
+        jPanel1.add(callpEmpDept, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 180, 30));
 
         callBAccounts.setBackground(new java.awt.Color(204, 204, 204));
         callBAccounts.setForeground(new java.awt.Color(0, 0, 0));
@@ -172,17 +174,30 @@ public class gui extends javax.swing.JFrame {
                 callBAccountsActionPerformed(evt);
             }
         });
-        jPanel1.add(callBAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 190, -1));
+        jPanel1.add(callBAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 190, 30));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/91988-200.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 180, 190));
+
+        jLabel1.setFont(new java.awt.Font("DIN Condensed", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("EXEBank");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -580,6 +595,8 @@ public class gui extends javax.swing.JFrame {
     private javax.swing.JButton callUsers;
     private javax.swing.JButton callWorkingATM;
     private javax.swing.JToggleButton callpEmpDept;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
