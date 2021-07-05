@@ -40,7 +40,9 @@ public class gui extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
+        callChiefs = new javax.swing.JButton();
         callUsers = new javax.swing.JButton();
+        callEmpKids = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +60,14 @@ public class gui extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 460, 380));
 
+        callChiefs.setText("Ver Jefes de Departamento");
+        callChiefs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callChiefsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(callChiefs, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
+
         callUsers.setText("Ver Usuarios");
         callUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +75,14 @@ public class gui extends javax.swing.JFrame {
             }
         });
         jPanel1.add(callUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
+
+        callEmpKids.setText("Ver Empleados con Bono");
+        callEmpKids.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callEmpKidsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(callEmpKids, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,6 +97,35 @@ public class gui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void callChiefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callChiefsActionPerformed
+        try {
+            Connection conect = DriverManager.getConnection(BD, user, pw);
+            java.sql.Statement st = conect.createStatement();
+            String query1 = "SELECT DISTINCT concat(u.first_name, ' ', u.last_name) as DEPARTMENTCHIEF, d.department_name as DEPARTMENT from users u JOIN employees e on u.ssn = e.employee_ssn INNER JOIN departments d on e.id = d.department_chief;";
+            ResultSet result = st.executeQuery(query1);
+
+            model.addColumn("Chief");
+            model.addColumn("Department");
+            this.tabla.setModel(model);
+
+            String data[] = new String[2];
+
+            while (result.next()) {
+
+                data[0] = result.getString("DEPARTMENTCHIEF");
+                data[1] = result.getString("DEPARTMENT");
+                model.addRow(data);
+            }
+
+            result.close();
+            st.close();
+            conect.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_callChiefsActionPerformed
 
     private void callUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callUsersActionPerformed
         try {
@@ -101,16 +148,52 @@ public class gui extends javax.swing.JFrame {
                 data[2] = result.getString("nationality");
                 model.addRow(data);
             }
-            
+
             result.close();
             st.close();
             conect.close();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_callUsersActionPerformed
 
+    private void callEmpKidsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callEmpKidsActionPerformed
+        try {
+            Connection conect = DriverManager.getConnection(BD, user, pw);
+            java.sql.Statement st = conect.createStatement();
+            String query1 = "SELECT concat(u.first_name,' ', u.last_name) as Employee_Name, concat(fm.first_name, ' ', fm.last_name) as kid_name, EXTRACT(DAY FROM (date_trunc('year',current_date)-date_trunc('year',fm.date_of_birth))/365 )as kids_age, CASE WHEN(EXTRACT(DAY FROM (date_trunc('year',current_date)-date_trunc('year',fm.date_of_birth))/365 ) < 8) THEN 'SI' ELSE 'NO' END as extraPayment from users u INNER JOIN employees e on u.ssn = e.employee_ssn INNER JOIN family_members fm on e.id = fm.employee_id;";
+            ResultSet result = st.executeQuery(query1);
+
+            model.addColumn("Empleado");
+            model.addColumn("Hijo");
+            model.addColumn("Edad del Hijo");
+            model.addColumn("Pago Extra");
+            this.tabla.setModel(model);
+
+            String data[] = new String[4];
+
+            while (result.next()) {
+
+                data[0] = result.getString("Employee_Name");
+                data[1] = result.getString("kid_name");
+                data[2] = result.getString("kids_age");
+                data[3] = result.getString("extraPayment");
+                model.addRow(data);
+            }
+
+            result.close();
+            st.close();
+            conect.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_callEmpKidsActionPerformed
+
+    public void resetTable() {
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -147,6 +230,8 @@ public class gui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton callChiefs;
+    private javax.swing.JToggleButton callEmpKids;
     private javax.swing.JButton callUsers;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
