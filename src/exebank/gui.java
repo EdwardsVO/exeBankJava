@@ -47,6 +47,9 @@ public class gui extends javax.swing.JFrame {
         callAfilliateAccounts = new javax.swing.JButton();
         callAccounts = new javax.swing.JToggleButton();
         callTransactions = new javax.swing.JToggleButton();
+        callAPA = new javax.swing.JButton();
+        callpEmpDept = new javax.swing.JToggleButton();
+        callBAccounts = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,7 +65,7 @@ public class gui extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabla);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 460, 380));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 460, 380));
 
         callChiefs.setText("Ver Jefes de Departamento");
         callChiefs.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +123,30 @@ public class gui extends javax.swing.JFrame {
         });
         jPanel1.add(callTransactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 180, -1));
 
+        callAPA.setText("Ver Cuentas Por Departamento");
+        callAPA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAPAActionPerformed(evt);
+            }
+        });
+        jPanel1.add(callAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 180, -1));
+
+        callpEmpDept.setText("Ver Trabajadores por Departamento");
+        callpEmpDept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callpEmpDeptActionPerformed(evt);
+            }
+        });
+        jPanel1.add(callpEmpDept, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 220, -1));
+
+        callBAccounts.setText(" Ver Cuentas Importantes");
+        callBAccounts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callBAccountsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(callBAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 180, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,7 +155,7 @@ public class gui extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
         );
 
         pack();
@@ -362,6 +389,108 @@ public class gui extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_callTransactionsActionPerformed
 
+    private void callAPAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAPAActionPerformed
+        try {
+            Connection conect = DriverManager.getConnection(BD, user, pw);
+            java.sql.Statement st = conect.createStatement();
+            String query1 = "SELECT account_number, account_type, h.country as country, h.city as city, h.zipcode as zip from accounts a INNER JOIN headquarters h on a.headquarter_id = h.id ORDER BY city;";
+            ResultSet result = st.executeQuery(query1);
+
+            model.addColumn("Cuenta");
+            model.addColumn("Tipo de Cuenta");
+            model.addColumn("Pais");
+            model.addColumn("Ciudad");
+            model.addColumn("Codigo Zip");
+            this.tabla.setModel(model);
+
+            String data[] = new String[5];
+
+            while (result.next()) {
+
+                data[0] = result.getString("account_number");
+                data[1] = result.getString("account_type");
+                data[2] = result.getString("country");
+                data[3] = result.getString("city");
+                data[4] = result.getString("zip");
+
+                model.addRow(data);
+            }
+
+            result.close();
+            st.close();
+            conect.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_callAPAActionPerformed
+
+    private void callpEmpDeptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callpEmpDeptActionPerformed
+        try {
+            Connection conect = DriverManager.getConnection(BD, user, pw);
+            java.sql.Statement st = conect.createStatement();
+            String query1 = "SELECT count(e.id) as employees, d.department_name as department_name, h.city as city  from employees e INNER JOIN departments d on e.department_id = d.id INNER JOIN headquarters h on h.id = d.headquarter_id GROUP BY d.id, h.city";
+            ResultSet result = st.executeQuery(query1);
+
+            model.addColumn("Cantidad");
+            model.addColumn("Departamento");
+            model.addColumn("Ciudad");
+            this.tabla.setModel(model);
+
+            String data[] = new String[3];
+
+            while (result.next()) {
+
+                data[0] = result.getString("employees");
+                data[1] = result.getString("department_name");
+                data[2] = result.getString("city");
+
+                model.addRow(data);
+            }
+
+            result.close();
+            st.close();
+            conect.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_callpEmpDeptActionPerformed
+
+    private void callBAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callBAccountsActionPerformed
+        try {
+            Connection conect = DriverManager.getConnection(BD, user, pw);
+            java.sql.Statement st = conect.createStatement();
+            String query1 = "SELECT concat(first_name, ' ', last_name) as full_name, account_number as account_number, a.account_balance as balance, a.account_type as account_type from users u INNER JOIN accounts a on u.id = a.owner WHERE(a.account_balance > 20000) ORDER BY balance desc;";
+            ResultSet result = st.executeQuery(query1);
+
+            model.addColumn("Nombre");
+            model.addColumn("# de Cuenta");
+            model.addColumn("Balance");
+            model.addColumn("Tipo");
+            this.tabla.setModel(model);
+
+            String data[] = new String[4];
+
+            while (result.next()) {
+
+                data[0] = result.getString("full_name");
+                data[1] = result.getString("account_number");
+                data[2] = result.getString("balance");
+                data[3] = result.getString("account_type");
+
+                model.addRow(data);
+            }
+
+            result.close();
+            st.close();
+            conect.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_callBAccountsActionPerformed
+
     public void resetTable() {
         
     }
@@ -401,13 +530,16 @@ public class gui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton callAPA;
     private javax.swing.JToggleButton callAccounts;
     private javax.swing.JButton callAfilliateAccounts;
+    private javax.swing.JButton callBAccounts;
     private javax.swing.JButton callChiefs;
     private javax.swing.JToggleButton callEmpKids;
     private javax.swing.JToggleButton callTransactions;
     private javax.swing.JButton callUsers;
     private javax.swing.JButton callWorkingATM;
+    private javax.swing.JToggleButton callpEmpDept;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
