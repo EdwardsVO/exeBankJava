@@ -26,6 +26,7 @@ public class gui extends javax.swing.JFrame {
     public gui() {
         initComponents();
         model = new DefaultTableModel();
+        this.setLocationRelativeTo(null);
 
     }
 
